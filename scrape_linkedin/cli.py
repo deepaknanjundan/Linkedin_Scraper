@@ -44,6 +44,7 @@ def _init_logging():
 
 
 @click.command()
+
 @click.option('--url', type=str, help='Url of the profile you want to scrape')
 @click.option('--user', type=str, help='Username portion of profile: (www.linkedin.com/in/<username>')
 @click.option('--company', type=str, help='ID of Company you want to scrape. (https://www.linkedin.com/company/id/)')
@@ -93,6 +94,8 @@ def scrape(url, user, company, attribute, input_file, headless, output_file, dri
             json.dump(output, outfile)
     else:
         pprint(output)
+        
+scrape(prog_name='TARP_JCOMP')  # Call with explicit `prog_name`        
 
 
 if __name__ == '__main__':
