@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 def _init_logging():
     now_time_str = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
     # Set the default logging level for all other modules to WARNING
-    log_fname = 'scrapeli_{}.log'.format(now_time_str)
+    log_fname = 'TARP_REVIEW_3_{}.log'.format(now_time_str)
     print("Logging debug information to", log_fname)
     logging.basicConfig(level=logging.WARNING,
                         format='%(asctime)s %(levelname)-8s %(name)s [%(filename)s:%(lineno)d] %(message)s',
@@ -56,7 +56,7 @@ def _init_logging():
 @click.option('--driver', type=click.Choice(['Chrome', 'Firefox']), help='Webdriver to use: (Firefox/Chrome)', default='Chrome')
 def scrape(url, user, company, attribute, input_file, headless, output_file, driver):
     _init_logging()
-    logger.info("Starting scrapeli with: %s", locals())
+    logger.info("Starting portfolio scraper with: %s", locals())
     driver_options = {}
     if headless:
         logger.debug("HEADLESS")
