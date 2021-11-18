@@ -52,12 +52,10 @@ def _init_logging():
 @click.option('--input_file', '-i', type=click.Path(exists=True), default=None,
               help='Path to html of the profile you wish to load')
 @click.option('--headless', is_flag=True, help="Run in headless mode")
-@click.option('--output_file', '-o', type=click.Path(), default=None,
-              help='Output file you want to write returned content to')
 @click.option('--driver', type=click.Choice(['Chrome', 'Firefox']), help='Webdriver to use: (Firefox/Chrome)', default='Chrome')
 def scrape(url, user, company, attribute, input_file, headless, output_file, driver):
     _init_logging()
-    logger.info("Starting portfolio scraper with: %s", locals())
+    logger.info("Trying to access and authenticate profile  with: %s", locals())
     driver_options = {}
     if headless:
         logger.debug("HEADLESS")
@@ -66,6 +64,8 @@ def scrape(url, user, company, attribute, input_file, headless, output_file, dri
         url = 'https://www.linkedin.com/company/' + company
     if user:
         url = 'https://www.linkedin.com/in/' + user
+        with open('./test.json', 'w') as outfile:
+            json.dump(output, outfile)
     if (url and input_file) or (not url and not input_file):
         raise ClickException(
             'Must pass either a url or file path, but not both.')
@@ -89,11 +89,7 @@ def scrape(url, user, company, attribute, input_file, headless, output_file, dri
     else:
         output = profile.to_dict()
 
-    if output_file:
-        with open(output_file, 'w') as outfile:
-            json.dump(output, outfile)
-    else:
-        pprint(output)
+        
         
 scrape(prog_name='TARP_JCOMP')  # Call with explicit `prog_name`        
 
