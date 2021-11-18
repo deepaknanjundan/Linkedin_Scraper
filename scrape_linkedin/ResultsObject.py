@@ -15,7 +15,7 @@ class ResultsObject(object):
         try:
             return getattr(self, attr)
         except Exception as e:
-            logger.error("Failed to get attribute '%s': %s", attr, e)
+            logger.error("Failed to access attribute '%s': %s", attr, e)
             return None
 
     def to_dict(self):
