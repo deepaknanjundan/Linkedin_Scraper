@@ -44,7 +44,7 @@ class ProfileScraper(Scraper):
             raise ValueError(
                 "Url must look like... .com/in/NAME or... '.com/sales/gmail/profile/proxy/EMAIL")
 
-        logger.debug("Scraping profile for URL %s", url)
+        logger.debug("Accessing profile for URL %s", url)
 
         self.driver.get(url)
         # Wait for page to load dynamically via javascript
@@ -110,7 +110,7 @@ class ProfileScraper(Scraper):
             return contact_info.get_attribute('outerHTML')
         except Exception as e:
             logger.warning(
-                "Failed to open/get contact info HTML. Returning an empty string.", e)
+                "Failed to open/get contact info HTML.", e)
             return ""
 
     def get_mutual_connections(self):
@@ -119,7 +119,7 @@ class ProfileScraper(Scraper):
                 'Mutual Connection')
         except NoSuchElementException as e:
             logger.warning(
-                "Could not find a mutual connections link. Returning an empty list.")
+                "Could not find a mutual connections link.")
             return []
         with ConnectionScraper(scraperInstance=self) as cs:
             cs.driver.get(link.get_attribute('href'))
