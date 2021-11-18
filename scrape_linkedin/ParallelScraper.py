@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import shutil
 
@@ -10,6 +11,7 @@ from .ConnectionScraper import ConnectionScraper
 from .ProfileScraper import ProfileScraper
 from .utils import HEADLESS_OPTIONS, split_lists
 
+logger = logging.getLogger(__name__)
 
 
 def scrape_in_parallel(
@@ -56,6 +58,6 @@ def scrape_job(scraper_type, items, output_file, **scraper_kwargs):
             elif scraper_type == ProfileScraper:
                 data[item] = scraper.scrape(user=item).to_dict()
         except Exception as e:
-           exception("%s could not be scraped: %s", item, e)
+            logger.exception("%s could not be accessed: %s", item, e)
         with open(output_file, 'w') as out:
             json.dump(data, out)
