@@ -53,7 +53,7 @@ def _init_logging():
               help='Path to html of the profile you wish to load')
 @click.option('--headless', is_flag=True, help="Run in headless mode")
 @click.option('--driver', type=click.Choice(['Chrome', 'Firefox']), help='Webdriver to use: (Firefox/Chrome)', default='Chrome')
-def scrape(url, user, company, attribute, input_file, headless, output_file, driver):
+def scrape(url, user, company, attribute, input_file, headless, driver):
     _init_logging()
     logger.info("Trying to access and authenticate profile  with: %s", locals())
     driver_options = {}
