@@ -1,4 +1,3 @@
-import logging
 import re
 
 from bs4 import BeautifulSoup
@@ -6,7 +5,6 @@ from bs4 import BeautifulSoup
 from .ResultsObject import ResultsObject
 from .utils import AnyEC, all_or_default, get_info, one_or_default
 
-logger = logging.getLogger(__name__)
 
 
 class Company(ResultsObject):
