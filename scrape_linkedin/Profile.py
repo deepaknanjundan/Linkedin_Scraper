@@ -15,7 +15,7 @@ class Profile(ResultsObject):
 
     @property
     def personal_info(self):
-        logger.info("Trying to determine the 'personal_info' property")
+        logger.info("Trying to acces the 'personal_info' property")
         """Return dict of personal info about the user"""
         personal_info = dict.fromkeys(['name', 'headline', 'company', 'school', 'location',
                                       'summary', 'image', 'followers', 'email', 'phone', 'connected', 'websites'])
@@ -62,7 +62,7 @@ class Profile(ResultsObject):
             followers_text = ''
             if activity_section:
                 logger.info(
-                    "Found the Activity section, trying to determine follower count.")
+                    "Found the Activity section, trying to access follower count.")
 
                 # Search for numbers of the form xx(,xxx,xxx...)
                 follower_count_search = re.search(
@@ -91,7 +91,7 @@ class Profile(ResultsObject):
                 personal_info['websites'] = websites
         except Exception as e:
             logger.exception(
-                "Encountered error while fetching personal_info. Details may be incomplete/missing/wrong: %s", e)
+                "Encountered error while checking personal_info. Details may be incomplete/missing/wrong: %s", e)
         finally:
             return personal_info
 
@@ -104,7 +104,7 @@ class Profile(ResultsObject):
                 - Education
                 - Volunteer Experiences
         """
-        logger.info("Trying to determine the 'experiences' property")
+        logger.info("Trying to access the 'experiences' property")
         experiences = dict.fromkeys(
             ['jobs', 'education', 'volunteering'], [])
         try:
@@ -128,7 +128,7 @@ class Profile(ResultsObject):
             experiences['volunteering'] = volunteering
         except Exception as e:
             logger.exception(
-                "Failed while determining experiences. Results may be missing/incorrect: %s", e)
+                "Failed while accessing experiences. Results while scraping may be missing/incorrect: %s", e)
         finally:
             return experiences
 
@@ -139,7 +139,7 @@ class Profile(ResultsObject):
             list of skills {name: str, endorsements: int} in decreasing order of
             endorsement quantity.
         """
-        logger.info("Trying to determine the 'skills' property")
+        logger.info("Trying to access the 'skills' property")
         skills = self.soup.select('.pv-skill-category-entity__skill-wrapper')
         skills = list(map(get_skill_info, skills))
 
@@ -163,7 +163,7 @@ class Profile(ResultsObject):
                 - languages
                 - organizations
         """
-        logger.info("Trying to determine the 'accomplishments' property")
+        logger.info("Trying to access the 'accomplishments' property")
         accomplishments = dict.fromkeys([
             'publications', 'certifications', 'patents',
             'courses', 'projects', 'honors',
@@ -179,7 +179,7 @@ class Profile(ResultsObject):
                 accomplishments[key] = list(accs)
         except Exception as e:
             logger.exception(
-                "Failed to get accomplishments, results may be incomplete/missing/wrong: %s", e)
+                "Failed to access accomplishments, running scraper may lead to incomplete/missing/wrong: %s", e)
         finally:
             return accomplishments
 
@@ -197,7 +197,7 @@ class Profile(ResultsObject):
             interests = list(map(lambda i: text_or_default(
                 i, '.pv-entity__summary-title'), interests))
         except Exception as e:
-            logger.exception("Failed to get interests: %s", e)
+            logger.exception("Failed to access interests: %s", e)
         finally:
             return interests
 
@@ -217,11 +217,11 @@ class Profile(ResultsObject):
             for rec_given in all_or_default(given, "li.pv-recommendation-entity"):
                 recs["given"].append(get_recommendation_details(rec_given))
         except Exception as e:
-            logger.exception("Failed to get recommendations: %s", e)
+            logger.exception("Failed to access recommendations: %s", e)
         finally:
             return recs
 
     def to_dict(self):
         logger.info(
-            "Attempting to turn return a dictionary for the Profile object.")
+            "Attempting to check whether profile is accessible.")
         return super(Profile, self).to_dict()
