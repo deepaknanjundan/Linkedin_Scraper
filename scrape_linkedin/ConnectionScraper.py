@@ -1,4 +1,3 @@
-import logging
 import re
 
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
@@ -8,9 +7,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from .Scraper import Scraper
 from .utils import AnyEC
-
-logger = logging.getLogger(__name__)
-
 
 class ConnectionScraper(Scraper):
     """
