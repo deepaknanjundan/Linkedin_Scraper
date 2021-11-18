@@ -1,9 +1,12 @@
+import logging
 import re
 import time
 
 from .Scraper import Scraper
 
 MY_CONNECTIONS_LINK = 'https://www.linkedin.com/mynetwork/invite-connect/connections/'
+
+logger = logging.getLogger(__name__)
 
 
 class MyConnectionScraper(Scraper):
